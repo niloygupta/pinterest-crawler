@@ -8,7 +8,7 @@ import sys
 from bs4 import BeautifulSoup
 import urllib2 
 
-
+# Gets the specific filters available on the Pinterest page
 def get_subtopics(soup):
     guideText = soup.findAll('span', {"class":"guideText"})
     
@@ -17,7 +17,8 @@ def get_subtopics(soup):
         sub_topics.append(str(guide.contents[0]))
     
     print sub_topics
-    
+
+#Gets the pin attributes for a given query    
 def get_pins(soup,query_term):
     pins = soup.findAll('div', {"class":"pinWrapper"})
     
@@ -30,7 +31,7 @@ def get_pins(soup,query_term):
         
         if(pin.find('h3', {"class":"richPinGridTitle"})!=None):
             pin_title = str(pin.find('h3', {"class":"richPinGridTitle"}).contents[0])
-        #pin_description = str(pin.find('div', {"class":"pinMeta"}).find('p',{'class':'pinDescription'}).contents[0].encode('utf-8').strip())
+        
         pin_description = ""
         if (pin.find('p',{'class':'pinDescription'})!=None):
             pin_description = str(pin.find('p',{'class':'pinDescription'}).contents[0].encode('utf-8').strip())
